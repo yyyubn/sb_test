@@ -78,6 +78,7 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
           git add deployment.yml
+          git remote add origin_with_token https://${GH_TOKEN}@github.com/pcmin929/deployment.git
           git commit -m "Update image tag"
           git push origin main
         env:

@@ -65,7 +65,7 @@ jobs:
       - name: Checkout Other Repository
         uses: actions/checkout@v2
         with:
-          repository: oolralra/deployment
+          repository: pcmin929/deployment
           ref: main  # or use the branch you want   
       - name: Make Modifications
         run: |

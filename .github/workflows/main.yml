@@ -73,4 +73,10 @@ jobs:
           cat deployment.yml
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-# ㅋ
+      - name: Commit and Push Changes
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add pcmin929/deployment.yml
+          git commit -m "Update image tag"
+          git push origin main

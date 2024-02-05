@@ -69,6 +69,6 @@ jobs:
           ref: main  # or use the branch you want   
       - name: Make Modifications
         run: |
-          sed -i "s@image: oolralra/sbimage:*@image: oolralra/sbimage:${{ steps.set-var.outputs.IMAGE_TAG }}@" pcmin929/deployment.yml
+          sed -i "s@image: oolralra/sbimage:*@image: oolralra/sbimage:${{ steps.set-var.outputs.IMAGE_TAG }}@" deployment.yml
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

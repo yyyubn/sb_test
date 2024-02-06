@@ -34,17 +34,19 @@ jobs:
         echo "IMAGE_TAG=${{ github.run_number }}" >> $GITHUB_ENV
         echo "GIT_EMAIL=pcmin929@gmail.com" >> $GITHUB_ENV
         echo "GIT_NAME=pcmin929" >> $GITHUB_ENV
-    
+   
     - uses: actions/setup-java@v2
       with:
         distribution: adopt
         java-version: 8
-      
+     
   #  - name: Setup Gradle
-  #    uses: maven/maven-build-action@v3
+  #    uses: gradle/gradle-build-action@v3
 
-  #  - name: chmod 
+  #  - name: chmod
   #    run: chmod +x ./gradlew
+  #    gradle로 빌드시 사용
+
 
     - name: Execute maven build
       run: mvn clean package
@@ -52,25 +54,26 @@ jobs:
     - name: Docker Image Build
       id: build-image
       run: |
-        docker build \
-        -f Dockerfile \
-        -t ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} .
+        docker build -t ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} .
 
     - name: Docker image Push
       id: push-image
       run: |
         docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
-    - name: Checkout Other Repository
+
+    - name: Checkout Deployment Repository
       uses: actions/checkout@v2
       with:
         repository: pcmin929/deployment
         ref: main  # branch
         token: ${{ secrets.GH_TOKEN }}
+
     - name: k8s manifest update
       run: |
         sed -i "s@ \
         image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:.*@ \
         image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}@g" deployment.yml
+
     - name: Commit and Push
       run: |
         git config user.email ${{ env.GIT_EMAIL }}

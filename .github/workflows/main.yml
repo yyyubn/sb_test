@@ -70,8 +70,9 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
       - name: k8s manifest update
         run: |
-          sed -i "s@image: ${{ steps.set-var.outputs.ECR_REGISTRY }}/${{ steps.set-var.outputs.ECR_REPOSITORY }}:.*@ \
-                    image: ${{ steps.set-var.outputs.ECR_REGISTRY }}/${{ steps.set-var.outputs.ECR_REPOSITORY }}:${{ steps.set-var.outputs.IMAGE_TAG }}@g" deployment.yml
+          sed -i "s@
+          image: ${{ steps.set-var.outputs.ECR_REGISTRY }}/${{ steps.set-var.outputs.ECR_REPOSITORY }}:.*@ \
+          image: ${{ steps.set-var.outputs.ECR_REGISTRY }}/${{ steps.set-var.outputs.ECR_REPOSITORY }}:${{ steps.set-var.outputs.IMAGE_TAG }}@g" deployment.yml
       - name: Commit and Push
         run: |
           git config user.email "pcmin929@gmail.com"

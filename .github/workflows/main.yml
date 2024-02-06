@@ -10,13 +10,13 @@ on:
 
 jobs:
   ci:
-    # runs-on: ubuntu-latest
-    # outputs:
-    #   IMAGE_TAG: ${{ steps.set-var.outputs.IMAGE_TAG }}
-    # steps:
-    #   - uses: actions/checkout@v2
-    #     with:
-    #       fetch-depth: 1
+    runs-on: ubuntu-latest
+    outputs:
+      IMAGE_TAG: ${{ steps.set-var.outputs.IMAGE_TAG }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
 
     #   - name: Configure AWS credentials
     #     uses: aws-actions/configure-aws-credentials@v1

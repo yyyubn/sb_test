@@ -70,12 +70,11 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
       - name: Make Modifications
         run: |
-          sed -i "s|image: oolralra/sbimage:.*|image: oolralra/sbimage:${{ steps.set-var.outputs.IMAGE_TAG }}|g" deployment.yml
+          sed -i "s|image: oolralra/sbimage:.*|image: ${{ steps.set-var.outputs.ECR_REGISTRY }}/${{ steps.set-var.outputs.ECR_REPOSITORY }}:${{ steps.set-var.outputs.IMAGE_TAG }}|g" deployment.yml
       - name: Commit and Push Changes
         run: |
           git config user.email "pcmin929@gmail.com"
           git config user.name "pcmin929"
           git add deployment.yml
-          
           git commit -m "Update image tag"
           git push origin main

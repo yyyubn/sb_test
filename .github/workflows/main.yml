@@ -42,11 +42,11 @@ jobs:
           distribution: adopt
           java-version: 8
         
-     - name: Setup Gradle
-       uses: maven/maven-build-action@v3
+    #  - name: Setup Gradle
+    #    uses: maven/maven-build-action@v3
 
-     - name: chmod 
-       run: chmod +x ./gradlew  
+    #  - name: chmod 
+    #    run: chmod +x ./gradlew  
 
       - name: Execute maven build
         run: mvn clean package

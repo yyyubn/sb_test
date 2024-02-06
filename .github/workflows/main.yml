@@ -6,7 +6,7 @@ on:
     paths-ignore:
     - '.gitignore'
     - '.dockerignore'
-    - 'deployment/**'
+    - 'deployment/**' #k8s의 이미지태그가 변경됐을땐 트리거되지 않도록 deployment폴더의 모든 파일은 무시한다.
 
 jobs:
   Continuous_Integration:   #job 이름

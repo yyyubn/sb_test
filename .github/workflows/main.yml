@@ -51,7 +51,6 @@ jobs:
   #    run: chmod +x ./gradlew
   #    gradle로 빌드시 사용
 
-
     - name: Execute maven build
       run: mvn clean package
 
@@ -64,13 +63,6 @@ jobs:
       id: push-image
       run: |
         docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
-
-    # - name: Checkout Deployment Repository
-    #   uses: actions/checkout@v2
-    #   with:
-    #     repository: pcmin929/deployment
-    #     ref: main  # branch
-    #     token: ${{ secrets.GH_TOKEN }}
 
     - name: k8s manifest update
       run: |
